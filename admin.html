@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>RSVP — Quản lý | Hà Vy &amp; Thanh An</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body{background:var(--ivory)}
+    .adm{width:min(1200px,100% - 32px);margin:0 auto;padding:40px 0 80px}
+    .adm h1{font-size:clamp(2rem,5vw,3rem);color:var(--burg)}
+    .adm .sub{opacity:.75;margin-top:6px}
+    .warn{background:#fff7e0;border:1px solid #e3cf8d;padding:12px 16px;margin:22px 0;font-size:.92rem}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0}
+    .stat{background:var(--soft);border:1px solid rgba(41,35,31,.12);padding:16px}
+    .stat b{display:block;font-family:var(--serif);font-size:2.4rem;font-weight:500;color:var(--burg);line-height:1}
+    .stat span{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+    .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0}
+    .bar input[type=search]{flex:1 1 220px;min-height:46px;padding:10px 14px;border:1px solid rgba(41,35,31,.25);background:var(--soft);font:inherit;font-size:16px}
+    .bar .btn{flex-direction:row;min-height:46px;padding:10px 18px}
+    .btn--danger{background:transparent;color:#9b1c2c;border-color:#9b1c2c}
+    .btn--danger:hover{background:#9b1c2c;color:#fff;border-color:#9b1c2c}
+    .tw{overflow-x:auto;background:var(--soft);border:1px solid rgba(41,35,31,.12)}
+    table{border-collapse:collapse;width:100%;min-width:860px;font-size:.92rem}
+    th,td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(41,35,31,.1);vertical-align:top}
+    th{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;background:var(--cream);position:sticky;top:0}
+    td.msg{max-width:280px;white-space:pre-wrap;word-break:break-word}
+    .yes{color:var(--olive);font-weight:600}.no{color:#9b1c2c;font-weight:600}
+    .empty{padding:40px;text-align:center;opacity:.65}
+    .x{background:none;border:0;color:#9b1c2c;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px}
+    .home{display:inline-block;margin-bottom:18px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+  </style>
+</head>
+<body>
+<div class="adm">
+  <a class="home" href="index.html">← Về trang thiệp</a>
+  <h1>Danh sách RSVP</h1>
+  <p class="sub">Hà Vy &amp; Thanh An · 10.10.2026</p>
+
+  <div class="warn">
+    Dữ liệu đang lưu <b>trên trình duyệt của máy này</b>. Trang này chỉ ẩn (không có mật khẩu) — đừng đưa thông tin nhạy cảm.
+    Nếu gửi link cho nhiều khách, hãy kết nối Google Sheets (xem README) để nhận RSVP của mọi người; khi đó Google Sheet mới là danh sách đầy đủ. Nên bấm <b>Xuất JSON</b> để sao lưu định kỳ.
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <input type="search" id="q" placeholder="Tìm theo tên, lời nhắn, bài hát…" aria-label="Tìm kiếm">
+    <button class="btn" id="csv">Xuất CSV</button>
+    <button class="btn btn--ghost" id="json">Xuất JSON</button>
+    <button class="btn btn--ghost" id="importBtn">Nhập JSON</button>
+    <button class="btn btn--ghost" id="sync" hidden>Gửi lên Google Sheet</button>
+    <input type="file" id="file" accept="application/json,.json" hidden>
+    <button class="btn btn--danger" id="clear">Xóa tất cả</button>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Thời gian</th><th>Họ tên</th><th>Tham dự</th><th>Số khách</th><th>Món ăn</th><th>Dị ứng</th><th>Bài hát</th><th>Lời nhắn</th><th></th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table><p class="empty" id="empty" hidden>Chưa có phản hồi nào.</p></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
